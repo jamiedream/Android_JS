@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IndexTitle</title>
+</head>
+<body>
+<button onclick="getPictureByCamera()">打开相机拍照</button>
+<img src="" alt="" id="img-box" />
+<script>
+
+  function getPictureByCamera() {
+
+    try {
+      <!--var str = {-->
+                    <!--callback: 'demoCallback',-->
+                    <!--clip: false,-->
+                    <!--editor: false,-->
+                    <!--compression: 0.5,-->
+                    <!--proportion: 2,-->
+                <!--};-->
+
+      <!--var array = [JSON.stringify(str), JSON.stringify(str)]-->
+
+      <!--callFunction('getPictureByCamera',-->
+                    <!--JSON.stringify(str)-->
+                  <!--);-->
+      callFunction('getPictureByCamera', 'f333333');
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+
+
+  function f333333(err, base64) {
+
+    if (err) {
+      console.log(err);
+      return alert(err);
+    }
+
+    console.log(base64);
+    document.getElementById('img-box').src=base64;
+  }
+
+  function callFunction(funcName) {
+    var arg = Array.prototype.slice.apply(arguments);
+    var func = null;
+
+    arg.shift();
+
+    if ( window.android ) {
+      func = android.getMessage.bind(android)
+      return func(funcName, arg);
+    }
+
+    if ( window.webkit ) {
+       func = window.webkit.messageHandlers;
+       return func[funcName].postMessage(...arg);
+    }
+
+    throw new Error('原生灭有定义');
+  }
+</script>
+</body>
+</html>
