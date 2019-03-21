@@ -28,6 +28,7 @@ public class Index extends AppCompatActivity {
 
     private String TAG = Index.class.getSimpleName();
     private WebView webView;
+    final MyInterface myInterface = new MyInterface(this);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,10 @@ public class Index extends AppCompatActivity {
         WebSettings setting = webView.getSettings();
         setting.setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/index.html");
-        final MyInterface myInterface = new MyInterface(this);
         webView.addJavascriptInterface(myInterface, "android");
 
         webView.setWebChromeClient(new WebChromeClient(){
+
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
 
@@ -71,6 +72,16 @@ public class Index extends AppCompatActivity {
                         Log.d(TAG, value);
                     }
                 });
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        webView.evaluateJavascript("javascript: writeWhenBackPressed()", new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+                Log.d(TAG, value);
             }
         });
     }

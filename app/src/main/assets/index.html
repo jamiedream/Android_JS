@@ -7,6 +7,7 @@
 <body>
 <button onclick="getPictureByCamera()">打开相机拍照</button>
 <img src="" alt="" id="img-box" />
+<p id="demo" />
 <script>
 
   function getPictureByCamera() {
@@ -60,6 +61,10 @@
     }
 
     throw new Error('原生灭有定义');
+  }
+
+  function writeWhenBackPressed(){
+    document.getElementById("demo").innerHTML = "返回事件觸發";
   }
 </script>
 </body>
