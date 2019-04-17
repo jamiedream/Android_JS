@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .li-item  {
+      height: 40px;
+      border-bottom: 1px solid #ccc;
+      list-style-type: none;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+<ul>
+  <li class="li-item" onclick="getPictureByCamera()">打开摄像头</li>
+</ul>
+
+
+<script src="file:///android_asset/appDrive.js"></script>
+<script>
+
+  function getPictureByCamera() {
+    appDrive.default.getPictureByCamera().then(base64 => {
+      alert(base64);
+    });
+  }
+</script>
+</body>
+</html>
